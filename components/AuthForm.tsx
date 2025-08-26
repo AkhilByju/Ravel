@@ -1,42 +1,40 @@
-"use client"
+"use client";
 
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-
-const formSchema = z.object({
-  fullName: z.string().min(2).max(50),
-  email: z.string().min(5).max(100).email(),
-})
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { createAccount } from "@/lib/actions/user.actions";
 
 type FormType = 'sign-in' | 'sign-up';
 
-const authFormSchema = (formType: FormType ) => {
+const authFormSchema = (formType: FormType) => {
   return z.object({
-    email: z.string().min(5).max(100).email(),
-    fullName: formType === 'sign-up' ? z.string().min(2).max(50) : z.string().optional(),
-  })
-}
+    email: z.string().email(),
+    fullName: 
+    formType === 'sign-up' 
+      ? z.string().min(2).max(50) 
+      : z.string().optional(),
+  });
+};
 
 const AuthForm = ({ type }: { type: FormType }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [accountId, setAccountId] = useState(null);
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,10 +43,24 @@ const AuthForm = ({ type }: { type: FormType }) => {
       fullName: "",
       email: "",
     },
-  })
+  });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const user = await createAccount({
+        fullName: values.fullName || "",
+        email: values.email,
+      });
+
+      setAccountId(user?.accountId);
+    } catch (error) {
+      setErrorMessage("Failed to create account. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
