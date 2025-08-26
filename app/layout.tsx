@@ -9,8 +9,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "StoreAI",
-  description: "StoreAI - the only storage solution you'll ever need.",
+  title: "Ravel",
+  description: "Ravel - the only storage solution you'll ever need.",
 };
 
 export default function RootLayout({
