@@ -15,6 +15,8 @@ const config: Config = {
 				'200': '#fa181d',
 				'300': '#0F172A',
 				'400': '#00E5FF',
+				'start': "#6366F1",
+				'end': "#F472B6",
   				DEFAULT: '#fbfbfa'
   			},
   			red: '#FF7474',
