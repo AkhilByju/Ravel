@@ -46,7 +46,7 @@ const Sidebar = ({ email, fullName, avatar }: Props) => {
     <Link href="/">
         <div className={cn(
             "relative z-10 mx-4 mt-4 mb-2 flex items-center gap-3 rounded-2xl",
-            "bg-white/5 px-4 py-3 backdrop-blur",
+            "bg-white/5 px-2 py-3 backdrop-blur",
             "border border-white/10 shadow-inner"
         )}
         >
@@ -60,7 +60,7 @@ const Sidebar = ({ email, fullName, avatar }: Props) => {
     </Link>
 
       <nav className='relative z-10 flex-1'>
-        <ul className='mt-2 flex flex-col gap-1 px-2'>
+        <ul className='mt-2 flex flex-col gap-2 px-2'>
             {navItems.map(({ url, name, icon }) => (
                 <Link key={name} href={url} className='lg:w-full group focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 rounded-xl'>
                     <li
@@ -128,7 +128,7 @@ const Sidebar = ({ email, fullName, avatar }: Props) => {
             className="h-11 w-11 rounded-xl object-cover ring-2 ring-indigo-400/40"
             />
             <div className="hidden min-w-0 lg:block">
-            <p className="truncate text-sm font-semibold text-slate-100">{fullName}</p>
+            <p className="truncate text-sm font-semibold text-slate-100 capitalize">{fullName}</p>
             <p className="truncate text-xs text-slate-400">{email}</p>
             </div>
         </div>
