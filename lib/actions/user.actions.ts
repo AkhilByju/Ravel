@@ -6,6 +6,9 @@ import { appwriteConfig } from "../appwrite/config";
 import { parseStringify } from "../utils";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { avatarPlaceholderUrl } from "@/constants";
+import { string } from "zod";
+import { parse } from "path";
 
 const getUserByEmail = async (email: string) => {
     const { databases } = await createAdminClient();
@@ -59,7 +62,7 @@ export const createAccount = async ({
       {
         fullName,
         email,
-        avatar: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541",
+        avatar: avatarPlaceholderUrl,
         accountId,
       },
     );
@@ -86,7 +89,7 @@ export const verifySecret = async ({accountId, password}: {accountId: string, pa
     } catch (error) {
         handleError(error, 'Failed to verify OTP');
     }
-}
+};
 
 export const getCurrentUser = async () => {
     const { databases, account } = await createSessionClient();
@@ -102,7 +105,7 @@ export const getCurrentUser = async () => {
     if (user.total <= 0) return null;
 
     return parseStringify(user.documents[0]);
-}
+};
 
 export const signOutUser = async () => {
   const { account } = await createSessionClient();
@@ -115,4 +118,19 @@ export const signOutUser = async () => {
   } finally {
     redirect("/sign-in");
   }
+};
+
+export const signInUser = async ({email}: {email: string}) => {
+    try {
+        const existingUser = await getUserByEmail(email);
+
+        if (existingUser) {
+            await sendEmailOTP({email});
+            return parseStringify({accountId: existingUser.accountId})
+        }
+
+        return parseStringify({accountId: null, error: "User not Found"});
+    } catch (error) {
+        handleError(error, "Failed to sign in user")
+    }
 };
