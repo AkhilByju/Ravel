@@ -109,7 +109,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
              bg-gradient-to-r from-indigo-500 to-fuchsia-500
              hover:from-indigo-600 hover:to-fuchsia-600
              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400 
-             hover:shadow-2xl hover:shadow-indigo-500/25"
+             hover:shadow-2xl hover:shadow-indigo-500/25 h-12 font-bold"
           disabled={isLoading}
       >
           {type === "sign-in" ? "Sign In" : "Sign Up"}
