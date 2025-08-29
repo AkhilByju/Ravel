@@ -69,15 +69,28 @@ const FileUploader = ({ ownerId, accountId, className} : Props) => {
   return (
     <div {...getRootProps()} className='cursor-pointer '>
       <input {...getInputProps()} />
-      <Button type="button" className={cn("uploader-button text-slate-900 hover:text-slate-50", className)}>
+      <Button
+        type="button"
+        className={cn(
+          "w-full flex items-center justify-center gap-2", // match sidebar buttons
+          "rounded-2xl px-5 py-3", // bigger padding = matches Logout
+          "bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white font-medium",
+          "shadow-sm ring-1 ring-indigo-400/30",
+          "transition hover:opacity-90 focus-visible:outline-none",
+          "focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2",
+          className
+        )}
+      >
         <Image
           src="assets/icons/upload.svg"
           alt="upload"
-          width={24}
-          height={24}
+          width={22}
+          height={22}
+          className="drop-shadow-[0_0_4px_rgba(129,140,248,0.6)]"
         />
-        <p> Upload </p>
+        <p className="text-base">Upload</p>
       </Button>
+
       {files.length > 0 && (
         <ul className='uploader-preview-list'>
           <h4 className='h4 text-light-100'>
