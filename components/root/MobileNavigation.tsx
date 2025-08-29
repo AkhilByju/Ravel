@@ -20,6 +20,8 @@ import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
 import FileUploader from './FileUploader';
 import { signOutUser } from '@/lib/actions/user.actions';
+import AskAI from './AskAI';
+import ImportantPins from './ImportantPins';
 
 interface Props {
   $id: string;
@@ -36,7 +38,23 @@ const MobileNavigation = ({ $id: ownerId, accountId, fullName, avatar, email}: P
   return (
     <div>
     <header className='mobile-header'>
-        Logo
+          <Link href="/" className="flex items-center gap-3">
+    <div
+      className={cn(
+        "h-9 w-9 rounded-xl flex items-center justify-center",
+        "bg-gradient-to-tr from-indigo-600 via-indigo-400 to-fuchsia-500",
+        "shadow-[0_0_12px_rgba(139,92,246,0.35)]"
+      )}
+    >
+      <div className={cn("h-8 w-8 rounded-lg", "bg-gradient-to-tr from-indigo-600 via-indigo-400 to-fuchsia-500")} />
+    </div>
+
+    <span className="text-lg font-semibold tracking-tight">
+      <span className="bg-gradient-to-r from-indigo-400 via-indigo-300 to-fuchsia-400 bg-clip-text text-transparent">
+        Ravel
+      </span>
+    </span>
+  </Link>
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger> 
             <Image src="/assets/icons/menu.svg" alt="Menu" width={30} height={30}/>
@@ -82,6 +100,8 @@ const MobileNavigation = ({ $id: ownerId, accountId, fullName, avatar, email}: P
                 </Link>
             ))}
               </ul>
+              <AskAI />
+              <ImportantPins />
             </nav>
 
             <Separator className='my-5 bg-light-200/20'/>

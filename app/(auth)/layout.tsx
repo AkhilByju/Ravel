@@ -4,14 +4,16 @@ import FeatureChip from '@/components/auth/FeatureChip'
 import TrustBar from '@/components/auth/TrustBar';
 import MiniCard from '@/components/auth/MiniCard';
 import { Shield, Sparkles, Search, Cloud } from "lucide-react";
+import SplitText from '@/components/ReactBits/SplitText';
 
 const Layout = ({ children}: {children: React.ReactNode}) => {
+
   return (
     <div className='flex min-h-screen'>
         <section className="relative lg:w-1/2 p-10 lg:p-14 text-slate-100 bg-gradient-to-br from-slate-950 via-indigo-700 to-fuchsia-500 hidden md:block">
             <div className='flex max-h-[800px] max-w-[430px] flex-col justify-center space-y-12'>
                 <div className='space-y-5 text-brand relative'>
-                    <h1 className='h1 tracking-tight'>Manage your files the best way</h1>
+                    <h1 className='h1 tracking-tight'>The best way to manage your files</h1>
                     <p className='body-1 max-w-md'>
                         This is a place where you can store all your documents
                     </p>

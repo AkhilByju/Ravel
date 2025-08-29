@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import path from 'path'
+import AskAI from './AskAI'
+import ImportantPins from './ImportantPins'
 
 interface Props {
     fullName: string;
@@ -53,7 +55,7 @@ const Sidebar = ({ email, fullName, avatar }: Props) => {
         <div className={cn("h-8 w-8 rounded-lg", "bg-gradient-to-tr from-indigo-600 via-indigo-400 to-fuchsia-500")}></div>
         <span className="text-base font-semibold tracking-tight">
         <span className="bg-gradient-to-r from-indigo-400 via-indigo-300 to-fuchsia-400 bg-clip-text text-transparent">
-        Ravel
+            Ravel
         </span>{" "}
         </span>
         </div>
@@ -91,31 +93,10 @@ const Sidebar = ({ email, fullName, avatar }: Props) => {
       </nav>
 
     {/* Ask Ravel AI */}
-    <div className="mx-4 my-3 rounded-2xl bg-white/10 p-3 backdrop-blur-sm">
-        <p className="text-sm font-semibold text-white">Ask Ravel AI</p>
-        <p className="mt-1 text-xs text-white/70">
-        Try: “Summarize PDFs in /Contracts” 
-        </p>
-        <button className="mt-3 w-full rounded-xl bg-white px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-white/90">
-            Open AI Panel
-        </button>
-    </div>
+    <AskAI />
 
     {/* Pinning Important stuff*/}
-    <div className="mx-4 my-3">
-    <p className="mb-2 text-xs uppercase tracking-wide text-white/60">Pinned</p>
-    <ul className="space-y-2">
-        {[
-        { name: "Cap Table.xlsx", icon: "📊" },
-        { name: "Brand Guidelines.pdf", icon: "📕" },
-        ].map((f) => (
-        <li key={f.name} className="flex items-center gap-2 rounded-xl bg-white/5 px-3 py-2 text-sm text-white/90 hover:bg-white/10">
-            <span className="text-base">{f.icon}</span>
-            <span className="truncate">{f.name}</span>
-        </li>
-        ))}
-    </ul>
-    </div>
+    <ImportantPins />
 
 
     <div className="relative z-10 m-3 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur">
