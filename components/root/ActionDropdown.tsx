@@ -33,6 +33,13 @@ import { usePathname } from 'next/navigation'
 import { FileDetails } from './ActionsModalContent'
 import { ShareInput } from './ActionsModalContent'
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { TooltipProvider } from '@radix-ui/react-tooltip'
+
 const ActionDropdown = ({file}: {file: Models.Document}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -136,38 +143,73 @@ const ActionDropdown = ({file}: {file: Models.Document}) => {
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-            <DropdownMenuTrigger className='shad-no-focus'>
+            <DropdownMenuTrigger className='shad-no-focus pt-2'>
                 <Image
                 src="/assets/icons/dots.svg"
                 alt="dots"
-                width={34}
-                height={34}
+                width={24}
+                height={24}
                 />
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-                <DropdownMenuLabel className='max-2-[200px] truncate'>{file.name}</DropdownMenuLabel>
-                <DropdownMenuSeparator />
+            <DropdownMenuContent
+                align="end"
+                sideOffset={8}
+                className="
+                    inline-block rounded-2xl p-px
+                    bg-[conic-gradient(from_180deg_at_50%_50%,rgba(99,102,241,0.6),rgba(217,70,239,0.6),rgba(99,102,241,0.6))]
+                    shadow-2xl text-white"
+            >
+                <div className="w-72 rounded-[inherit] bg-[#0b1220] p-1.5 ring-1 ring-indigo-400/30">
+                <DropdownMenuLabel  className="
+                    mx-1 mb-1 truncate rounded-xl
+                    bg-gradient-to-r from-indigo-500/20 to-fuchsia-500/20
+                    px-3 py-2 text-sm font-semibold text-indigo-100
+                    ring-1 ring-indigo-400/30"
+                >
+                    <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger>{file.name}</TooltipTrigger>
+                        <TooltipContent>
+                            {file.name}
+                        </TooltipContent>
+                    </Tooltip>
+                    </TooltipProvider>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="my-1 h-px bg-gradient-to-r from-indigo-400/40 to-fuchsia-400/40"/>
                 {actionsDropdownItems.map((actionItem) => (
                     <DropdownMenuItem 
                     key={actionItem.value} 
-                    className='shad-dropdown-item' 
                     onClick={() => {
                         setAction(actionItem);
 
                         if(["rename", "share", "delete", "details"].includes(actionItem.value)) {
                             setIsModalOpen(true);
                         }
-                        }}>
-                        {actionItem.value === "download" ? <Link 
+                        }}
+                        className="
+                            group relative flex items-center gap-2 rounded-xl px-3 py-2 text-sm
+                            text-white
+                            hover:bg-indigo-500/10 focus:bg-indigo-500/10 data-[highlighted]:bg-indigo-500/10
+                            /* force white on focus/keyboard + highlighted */
+                            focus:!text-white data-[highlighted]:!text-white
+                        "
+                    >
+                        {actionItem.value === "download" ? 
+                        <Link 
                             href={constructDownloadUrl(file.bucketFileId)}
                             download={file.name}
-                            className='flex items-center gap-2'
+                            className='flex items-center gap-2 text-white hover:text-slate-100'
                         >
                             <Image 
                                 src={actionItem.icon}
                                 alt={actionItem.label}
                                 width={30}
                                 height={30}
+                                className="
+                                    h-7 w-7 rounded-lg p-1
+                                    bg-gradient-to-br from-indigo-500/25 to-fuchsia-500/25
+                                    ring-1 ring-indigo-400/30
+                                "
                             />
                             {actionItem.label}
                         </Link> : 
@@ -177,11 +219,17 @@ const ActionDropdown = ({file}: {file: Models.Document}) => {
                                 alt={actionItem.label}
                                 width={30}
                                 height={30}
+                                className="
+                                    h-7 w-7 rounded-lg p-1
+                                    bg-gradient-to-br from-indigo-500/25 to-fuchsia-500/25
+                                    ring-1 ring-indigo-400/30
+                                "
                                 />
                             {actionItem.label}
                         </div>}
                     </DropdownMenuItem>
                 ))}
+                </div>
             </DropdownMenuContent>
         </DropdownMenu>
 
