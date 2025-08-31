@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '../ui/button'
 import Image from 'next/image'
 import FileUploader from './FileUploader'
-import { Search } from 'lucide-react'
+import Search from "./Search"
 import { signOutUser } from '@/lib/actions/user.actions'
 
 const Header = ({userId, accountId}: {userId: string, accountId: string}) => {
