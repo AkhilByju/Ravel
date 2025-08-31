@@ -51,17 +51,17 @@ const OTPModal = ({ accountId, email }: { accountId: string; email: string }) =>
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogContent className='shad-alert-dialog'>
         <AlertDialogHeader className='relative flex justify-center'>
-          <AlertDialogTitle className='h2 text-center'>Enter OTP</AlertDialogTitle>
+          <AlertDialogTitle className='text-center text-2xl font-extrabold bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent'>Enter OTP</AlertDialogTitle>
           <Image
             src='/assets/icons/close-dark.svg'
             alt='close'
             width={20}
             height={20}
             onClick={() => setIsOpen(false)}
-            className='otp-close-button'
+            className='otp-close-button opacity-90 hover:opacity-100'
           />
-          <AlertDialogDescription className='subtitle-2 text-center text-light-100'>
-            We've sent a code to <span className='pl-1 text-brand-300'>{ email }</span>
+          <AlertDialogDescription className='mt-1 text-center text-sm text-white/800'>
+            We've sent a code to <span className='pl-1 text-cyan-300'>{ email }</span>
       </AlertDialogDescription>
     </AlertDialogHeader>
 
@@ -80,12 +80,14 @@ const OTPModal = ({ accountId, email }: { accountId: string; email: string }) =>
         <div className='flex w-full flex-col gap-4'>
             <AlertDialogAction 
             onClick={handleSubmit}
-            className="w-full rounded-2xl px-4 py-3 text-white shadow-lg
-             transition-colors duration-300 active:scale-[.99]
-             bg-gradient-to-r from-indigo-500 to-fuchsia-500
-             hover:from-indigo-600 hover:to-fuchsia-600
-             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400 
-             hover:shadow-2xl hover:shadow-indigo-500/25"
+            className="
+                w-full rounded-2xl px-4 py-3 text-white shadow-lg
+                transition-colors duration-300 active:scale-[.99]
+                bg-gradient-to-r from-indigo-500 to-fuchsia-500
+                hover:from-indigo-600 hover:to-fuchsia-600
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400
+                hover:shadow-2xl hover:shadow-indigo-500/25
+             "
             type="button"
           >
             Submit
@@ -98,9 +100,9 @@ const OTPModal = ({ accountId, email }: { accountId: string; email: string }) =>
             />}
           </AlertDialogAction>
 
-            <div className="subtitle-2 mt-2 text-center text-light-100">
+            <div className="mt-2 text-center text-sm text-white/75">
                 Didn't receive a code?
-                <Button type="button" variant="link" onClick={handleResendOTP} className='pl-1 text-brand-300'>
+                <Button type="button" variant="link" onClick={handleResendOTP} className='pl-1 text-cyan-300 hover:underline'>
                     Click to Resend OTP
                 </Button>
             </div>
