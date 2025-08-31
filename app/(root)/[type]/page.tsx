@@ -20,7 +20,7 @@ const page = async ({ searchParams, params }: SearchParamProps) => {
             <h1 className='h1 capitalize bg-gradient-to-r from-indigo-600 via-fuchsia-500 to-fuchsia-400 bg-clip-text text-transparent'>
                 {type}
             </h1>
-            <div className='total-size-section'>
+            <div className='total-size-section pb-6'>
                 <p className='body-1'>
                     Total: <span className="h5">0Mb</span>
                 </p>
