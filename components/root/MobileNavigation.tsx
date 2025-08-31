@@ -55,10 +55,25 @@ const MobileNavigation = ({ $id: ownerId, accountId, fullName, avatar, email}: P
       </span>
     </span>
   </Link>
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger> 
-            <Image src="/assets/icons/menu.svg" alt="Menu" width={30} height={30}/>
-          </SheetTrigger>
+      <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger
+            aria-label="Open menu"
+            className="rounded-xl p-2 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50"
+          >
+          <span
+            className="block h-[30px] w-[30px] bg-gradient-to-r from-white to-indigo-200 drop-shadow-[0_0_12px_rgba(255,255,255,0.8)] mix-blend-screen"
+            style={{
+              WebkitMaskImage: 'url(/assets/icons/menu.svg)',
+              maskImage: 'url(/assets/icons/menu.svg)',
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+              WebkitMaskSize: 'contain',
+              maskSize: 'contain',
+              WebkitMaskPosition: 'center',
+              maskPosition: 'center',
+            }}
+          />
+        </SheetTrigger>
 
         <SheetContent className='shad-sheet h-screen px-3 bg-gradient-to-tr from-indigo-900 via-indigo-700 to-fuchsia-700'>
             <SheetTitle>
@@ -101,7 +116,6 @@ const MobileNavigation = ({ $id: ownerId, accountId, fullName, avatar, email}: P
             ))}
               </ul>
               <AskAI />
-              <ImportantPins />
             </nav>
 
             <Separator className='my-5 bg-light-200/20'/>
