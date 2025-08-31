@@ -17,7 +17,7 @@ const page = async ({ searchParams, params }: SearchParamProps) => {
   return (
     <div className='page=container'>
         <section className='w-full'>
-            <h1 className='h1 capitalize'>
+            <h1 className='h1 capitalize bg-gradient-to-r from-indigo-600 via-fuchsia-300 to-indigo-300 bg-clip-text text-transparent'>
                 {type}
             </h1>
             <div className='total-size-section'>

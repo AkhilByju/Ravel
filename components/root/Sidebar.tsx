@@ -95,9 +95,6 @@ const Sidebar = ({ email, fullName, avatar }: Props) => {
     {/* Ask Ravel AI */}
     <AskAI />
 
-    {/* Pinning Important stuff*/}
-    <ImportantPins />
-
 
     <div className="relative z-10 m-3 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur">
         <div className="flex items-center gap-3">
