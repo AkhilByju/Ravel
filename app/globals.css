@@ -145,17 +145,22 @@
     @apply outline-none ring-offset-transparent focus:ring-transparent focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
   }
   .shad-input {
-    @apply border-none shadow-none p-0 shad-no-focus placeholder:text-light-200 body-2 !important;
+    @apply h-12 rounded-2xl
+      border border-white/10
+      bg-white/5 shadow-inner backdrop-blur
+      px-4 text-sm text-white placeholder:text-white/50
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40
+      focus-visible:border-white/20 !important;
   }
 
   .shad-form-item {
-    @apply flex h-[78px] flex-col justify-center rounded-xl border border-light-300 px-4 shadow-drop-1;
+    @apply flex flex-col gap-1.5;
   }
   .shad-form-label {
-    @apply text-light-100 pt-2 body-2 w-full !important;
+    @apply text-sm font-semibold text-white/85 pb-2 !important;
   }
   .shad-form-message {
-    @apply text-red body-2 ml-4 !important;
+    @apply text-xs text-rose-300 !important;
   }
   .shad-alert-dialog {
     @apply space-y-4 max-w-[95%] sm:w-fit rounded-xl md:rounded-[30px] px-4 md:px-8 py-10 bg-white outline-none !important;
@@ -297,16 +302,16 @@
 
   /* AuthForm */
   .auth-form {
-    @apply flex max-h-[800px] w-full max-w-[580px] flex-col justify-center space-y-6 transition-all lg:h-full lg:space-y-8 !important;
+    @apply flex max-h-[800px] w-full max-w-[580px] flex-col justify-center space-y-6 transition-all lg:h-full lg:space-y-8 text-slate-100 !important;
   }
   .form-title {
-    @apply h1 text-center text-light-100 md:text-left !important;
+    @apply text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent !important;
   }
   .form-submit-button {
     @apply primary-btn h-[66px] !important;
   }
   .error-message {
-    @apply body-2 mx-auto w-fit rounded-xl bg-error/5 px-8 py-4 text-center text-error !important;
+    @apply body-2 mx-auto w-fit rounded-xl bg-error/5 px-8 py-4 text-center text-rose-300 text-sm !important;
   }
 
   /* Card */

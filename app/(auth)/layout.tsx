@@ -31,9 +31,24 @@ const Layout = ({ children}: {children: React.ReactNode}) => {
               <MiniCard />
             </div>
         </section>
-        <section className='flex flex-1 flex-col items-center bg-brand p-4 py-10 lg:justify-center lg:p-10 lg:py-0'>
-            {children}
-        </section>
+      <section
+        className="
+          relative flex flex-1 items-center justify-center
+          bg-slate-950 p-6 lg:p-10
+          overflow-hidden
+        "
+      >
+        {/* background aurora glows */}
+        <div className="pointer-events-none absolute inset-0 -z-10 opacity-60">
+          <div className="absolute right-[-10%] top-[-10%] h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.18),transparent_60%)] blur-3xl" />
+          <div className="absolute left-[-8%] bottom-[-12%] h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(217,70,239,0.18),transparent_60%)] blur-3xl" />
+        </div>
+
+        {/* glass panel that wraps your auth form */}
+        <div className="w-full max-w-md rounded-3xl border border-white/10 bg-white/[0.06] p-6 shadow-2xl backdrop-blur-xl ring-1 ring-white/10">
+          {children}
+        </div>
+      </section>
     </div>
   )
 }

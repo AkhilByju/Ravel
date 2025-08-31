@@ -106,12 +106,15 @@ const AuthForm = ({ type }: { type: FormType }) => {
         />
         <Button 
           type="submit" 
-          className="w-full rounded-2xl px-4 py-3 text-white shadow-lg
-             transition-colors duration-300 active:scale-[.99]
-             bg-gradient-to-r from-indigo-500 to-fuchsia-500
-             hover:from-indigo-600 hover:to-fuchsia-600
-             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400 
-             hover:shadow-2xl hover:shadow-indigo-500/25 h-12 font-bold"
+          className="
+              w-full h-12 rounded-2xl font-bold text-white
+              bg-gradient-to-r from-indigo-500 to-fuchsia-500
+              shadow-lg ring-1 ring-white/20
+              transition duration-300 active:scale-[.99]
+              hover:from-indigo-600 hover:to-fuchsia-600
+              hover:shadow-2xl hover:shadow-indigo-500/25
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400
+             "
           disabled={isLoading}
       >
           {type === "sign-in" ? "Sign In" : "Sign Up"}
@@ -129,14 +132,14 @@ const AuthForm = ({ type }: { type: FormType }) => {
         {errorMessage && (
           <p className="error-message">*{errorMessage}</p>
         )}
-        <div className="body-2 flex justify-center">
-          <p className="text-brand-100">
+        <div className="flex justify-center text-sm">
+          <p className="text-white/70">
             {type === "sign-in"
               ? "Don't have an account? "
               : "Already have an account? "}
           </p>
           <Link href={type === "sign-in" ? "/sign-up" : "/sign-in"}>
-            <p className="text-brand-400 ml-1 font-medium">
+            <p className="ml-1 font-medium text-cyan-300 hover:underline">
               {type === "sign-in" ? " Sign Up" : " Sign In"}
             </p>
           </Link>
