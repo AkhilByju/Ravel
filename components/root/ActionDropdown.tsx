@@ -120,9 +120,9 @@ const ActionDropdown = ({file}: {file: Models.Document}) => {
                         <ShareInput file={file} onInputChange={setEmails} onRemove={handleRemoveUser}/> 
                     )}
                     {value === "delete" && (
-                        <p className='delete-confirmation'>
+                        <p className='text-center text-white'>
                             Are you sure you want to delete{` `}
-                            <span className='delete-file-name'>
+                            <span className='font-medium text-lg text-rose-500'>
                                 {file.name}
                             </span>?
                         </p>
