@@ -94,14 +94,25 @@ const ActionDropdown = ({file}: {file: Models.Document}) => {
 
         const { value, label } = action;
         return (
-            <DialogContent className='shad-dialog button'>
-                <DialogHeader className='flex flex-col gap-3'>
-                    <DialogTitle className='text-center text-light-100'>{label}</DialogTitle>
+            <DialogContent className=' w-full max-w-lg rounded-3xl border border-white/10
+                bg-white/[0.06] p-6 shadow-2xl backdrop-blur-xl
+                ring-1 ring-white/10 text-slate-100'>
+                <DialogHeader className='flex flex-col gap-4'>
+                    <DialogTitle className='text-center text-xl font-extrabold
+        bg-gradient-to-r from-indigo-300 to-fuchsia-300
+        bg-clip-text text-transparent'>{label}</DialogTitle>
                     {value === "rename" && (
                         <Input
                         type='text'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        className='h-12 rounded-2xl
+                            border border-white/15 bg-white/10
+                            px-4 text-sm text-white placeholder:text-white/50
+                            shadow-inner backdrop-blur
+                            focus-visible:outline-none
+                            focus-visible:ring-2 focus-visible:ring-indigo-500/40
+                            focus-visible:border-white/25'
                         />
                     )}
                     {value === "details" && <FileDetails file={file}/>}
@@ -118,11 +129,18 @@ const ActionDropdown = ({file}: {file: Models.Document}) => {
                     )}
                 </DialogHeader>
                 {['rename', 'delete', 'share'].includes(value) && (
-                    <DialogFooter className='flex flex-col gap-3 md:flex-row'>
-                        <Button onClick={closeAllModals} className='modal-cancel-button'>
+                    <DialogFooter className='mt-2 flex flex-col gap-3 md:flex-row md:justify-center'>
+                        <Button onClick={closeAllModals} className='h-11 w-full md:w-40 rounded-2xl
+                            border border-white/15 bg-white/10 text-white/90
+                            hover:bg-white/15'
+                        >
                             Cancel
                         </Button>
-                        <Button onClick={handleAction} className='modal-submit-button'>
+                        <Button onClick={handleAction} className='h-11 w-full md:w-40 rounded-2xl font-semibold text-white
+                            bg-gradient-to-r from-indigo-500 to-fuchsia-500
+                            shadow-lg ring-1 ring-white/20
+                            hover:from-indigo-600 hover:to-fuchsia-600'
+                        >
                             <p className='capitalize'>{value}</p>
                             {isLoading && (
                                 <Image
@@ -188,7 +206,7 @@ const ActionDropdown = ({file}: {file: Models.Document}) => {
                         }}
                         className="
                             group relative flex items-center gap-2 rounded-xl px-3 py-2 text-sm
-                            text-white
+                            text-white cursor-pointer
                             hover:bg-indigo-500/10 focus:bg-indigo-500/10 data-[highlighted]:bg-indigo-500/10
                             /* force white on focus/keyboard + highlighted */
                             focus:!text-white data-[highlighted]:!text-white

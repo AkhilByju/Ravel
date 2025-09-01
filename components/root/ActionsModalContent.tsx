@@ -8,20 +8,22 @@ import { Button } from '../ui/button'
 import Image from 'next/image'
 
 const ImageThumbnail = ({file}: {file: Models.Document}) => (
-    <div className='file-details-thumbnail'>
-        <Thumbnail type={file.type} extension={file.extension} url={file.url} />
-        <div className='flex flex-col'>
-            <p className='subtitle-2 mb-1'>{file.name}</p>
-            <FormattedDateTime date={file.$createdAt}  className='caption'/>
+    <div className='flex items-center gap-3 rounded-2xl
+      border border-white/10 bg-white/[0.08] p-3
+      ring-1 ring-white/10 shadow-inner backdrop-blur'>
+        <Thumbnail type={file.type} extension={file.extension} url={file.url} className='!size-10 rounded-xl bg-white/10 ring-1 ring-white/15 grid place-items-center'/>
+        <div className='min-w-0'>
+            <p className='text-sm font-semibold text-white/95 truncate'>{file.name}</p>
+            <FormattedDateTime date={file.$createdAt}  className='text-left text-sm text-white/60'/>
         </div>
     </div>
 )
 
 const DetailsRow = ({label, value}: {label: string, value:string}) => {
     return (
-        <div className='flex'>
-            <p className='file-details-label text-left'>{label}</p>
-            <p className='file-details-value text-left'>{value}</p>
+        <div className='grid grid-cols-[120px_1fr] items-center gap-3 py-2 first:pt-0 last:pb-0'>
+            <p className='text-sm text-white/60 text-left'>{label}</p>
+            <p className='text-sm font-medium text-white text-left'>{value}</p>
         </div>
     )
 }
@@ -30,7 +32,7 @@ export const FileDetails = ({file}: {file: Models.Document}) => {
   return (
     <>
         <ImageThumbnail file={file} />
-        <div className='space-y-4 px-2 pt-2'>
+        <div className='mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 ring-1 ring-white/10'>
             <DetailsRow label="Format:" value={file.extension} />
             <DetailsRow label="Size:" value={convertFileSize(file.size)} />
             <DetailsRow label="Owner:" value={file.owner.fullName} />
