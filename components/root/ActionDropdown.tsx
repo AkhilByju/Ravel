@@ -201,6 +201,7 @@ const ActionDropdown = ({file}: {file: Models.Document}) => {
                         setAction(actionItem);
 
                         if(["rename", "share", "delete", "details"].includes(actionItem.value)) {
+                            setIsDropdownOpen(false);
                             setIsModalOpen(true);
                         }
                         }}
