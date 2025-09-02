@@ -18,7 +18,7 @@ const page = async ({ searchParams, params }: SearchParamProps) => {
     <div className='page-container'>
         <section className='w-full'>
             <h1 className='h1 capitalize bg-gradient-to-r from-indigo-600 via-fuchsia-500 to-fuchsia-400 bg-clip-text text-transparent'>
-                {type}
+                {type.replace(/-/g, ' ')}
             </h1>
             <div className='total-size-section pb-6'>
                 <p className='body-1'>
