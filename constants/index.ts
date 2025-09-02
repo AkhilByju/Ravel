@@ -5,6 +5,11 @@ export const navItems = [
     url: "/",
   },
   {
+    name: "All Files",
+    icon: "/assets/icons/dashboard.svg",
+    url: "/all"
+  },
+  {
     name: "Documents",
     icon: "/assets/icons/documents.svg",
     url: "/documents",

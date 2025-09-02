@@ -229,7 +229,9 @@ export const getFileTypesParams = (type: string) => {
       return ["video", "audio"];
     case "others":
       return ["other"];
+    case "all":
+      return undefined;
     default:
-      return ["document"];
+      return undefined;
   }
 };
