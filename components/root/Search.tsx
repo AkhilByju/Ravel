@@ -60,6 +60,10 @@ const Search = () => {
     setOpen(false);
   }
 
+  const handleEscape = () => {
+    setOpen(false);
+  }
+
   return (
     <div className="search">
       <div className="search-input-wrapper">
@@ -77,6 +81,9 @@ const Search = () => {
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               handleEnter();
+            }
+            else if (e.key === "Escape") {
+              handleEscape();
             }
           }}
         />
