@@ -57,6 +57,7 @@ const Search = () => {
     setOpen(false)
     setResults([]);
     router.push(`/all?query=${encodeURIComponent(q)}`);
+    setOpen(false);
   }
 
   return (
