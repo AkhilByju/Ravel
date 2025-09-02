@@ -253,7 +253,7 @@
 
   /* Type page */
   .page-container {
-    @apply mx-auto flex w-full max-w-7xl flex-col items-center gap-8 !important;
+    @apply mx-auto flex w-full flex-col items-center !important;
   }
   .total-size-section {
     @apply flex mt-2 flex-col justify-between sm:flex-row sm:items-center !important;
@@ -262,7 +262,7 @@
     @apply grid w-full gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 !important;
   }
   .sort-container {
-    @apply mt-5 flex items-center sm:mt-0 sm:gap-3 !important;
+    @apply mt-5 flex flex-nowrap items-center sm:mt-0 sm:gap-3 !important;
   }
 
   /* ActionsDropdown */

@@ -15,7 +15,7 @@ const page = async ({ searchParams, params }: SearchParamProps) => {
     const files = await getFiles({ types, searchText, sort});
 
   return (
-    <div className='page=container'>
+    <div className='page-container'>
         <section className='w-full'>
             <h1 className='h1 capitalize bg-gradient-to-r from-indigo-600 via-fuchsia-500 to-fuchsia-400 bg-clip-text text-transparent'>
                 {type}
@@ -25,9 +25,12 @@ const page = async ({ searchParams, params }: SearchParamProps) => {
                     Total: <span className="h5">0Mb</span>
                 </p>
 
-                <div className='sort-container'>
-                    <p className='body-1 hidden sm:block text-light-200'>Sort by:</p>
-                    <Sort />
+                <div className='sort-container'
+                >
+                    <p className='body-1 hidden sm:block text-white/70'>Sort by:</p>
+                      <div className="w-full sm:w-auto linline-flex">
+                        <Sort />
+                      </div>
                 </div>
             </div>
         </section>
