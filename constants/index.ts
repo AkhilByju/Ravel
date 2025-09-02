@@ -6,7 +6,7 @@ export const navItems = [
   },
   {
     name: "All Files",
-    icon: "/assets/icons/dashboard.svg",
+    icon: "/assets/icons/folder.svg",
     url: "/all"
   },
   {

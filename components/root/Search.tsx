@@ -51,6 +51,14 @@ const Search = () => {
     );
   };
 
+  const handleEnter = () => {
+    const q = query.trim();
+    if (!q) return;
+    setOpen(false)
+    setResults([]);
+    router.push(`/all?query=${encodeURIComponent(q)}`);
+  }
+
   return (
     <div className="search">
       <div className="search-input-wrapper">
@@ -65,6 +73,11 @@ const Search = () => {
           placeholder="Search..."
           className="search-input"
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleEnter();
+            }
+          }}
         />
 
         {open && (
