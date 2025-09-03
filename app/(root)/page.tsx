@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { streamOllama } from '@/hooks/useOllama';
+import StatsCard from '@/components/root/StatsCard';
 
 export default function Home() {
   const [query, setQuery] = useState('');
@@ -82,14 +83,7 @@ export default function Home() {
         </div>
 
         {/* stat cards */}
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {[{ label: "Indexed Files", value: "1,284" }, { label: "Embeddings", value: "2.7M" }, { label: "Latency (p95)", value: "210 ms" }].map((s) => (
-            <div key={s.label} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-inner">
-              <p className="text-[10px] font-semibold tracking-widest text-white/55">{s.label.toUpperCase()}</p>
-              <p className="mt-2 text-xl font-bold text-white/90">{s.value}</p>
-            </div>
-          ))}
-        </div>
+        <StatsCard />
 
         {/* Quick actions */}
         <div className="mt-6 flex flex-wrap gap-2">
