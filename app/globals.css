@@ -356,10 +356,16 @@
     @apply primary-btn h-[52px] gap-2 px-10 shadow-drop-1 !important;
   }
   .uploader-preview-list {
-    @apply fixed bottom-10 right-10 z-50 flex size-full h-fit max-w-[480px] flex-col gap-3 rounded-[20px] bg-white p-7 shadow-drop-3 !important;
+    @apply fixed bottom-[50px] right-[50px] z-50 mx-auto flex size-full h-fit max-w-[480px] flex-col gap-3 rounded-3xl border-2 border-white/15
+      bg-slate-900/60 backdrop-blur-2xl shadow-[0_12px_46px_-10px_rgba(0,0,0,0.7)]
+      ring-1 ring-inset ring-white/5
+      p-4 sm:p-6 space-y-4 !important;
   }
   .uploader-preview-item {
-    @apply flex items-center justify-between  gap-3 rounded-xl p-3 shadow-drop-3 !important;
+    @apply flex items-center justify-between gap-4 rounded-2xl p-3 border border-white/10 bg-white/5 
+      shadow-inner shadow-white/5
+      transition-all duration-300
+      hover:-translate-y-0.5 hover:bg-white/5 !important;
   }
   .preview-item-name {
     @apply subtitle-2 mb-2 line-clamp-1 max-w-[300px] !important;

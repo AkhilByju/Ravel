@@ -17,7 +17,13 @@ import { useToast } from "@/hooks/use-toast"
 import { uploadFile } from '@/lib/actions/file.actions'
 import { usePathname } from 'next/navigation'
 
-
+function formatBytes(bytes: number): string {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
 
 interface Props {
   ownerId: string;
@@ -93,7 +99,7 @@ const FileUploader = ({ ownerId, accountId, className} : Props) => {
 
       {files.length > 0 && (
         <ul className='uploader-preview-list'>
-          <h4 className='h4 text-light-100'>
+          <h4 className='h4 bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent'>
             Uploading
           </h4>
 
@@ -102,21 +108,22 @@ const FileUploader = ({ ownerId, accountId, className} : Props) => {
 
             return (
               <li key={`${file.name}-${index}`} className='uploader-preview-item'>
-                <div className='flex items-center gap-3'>
+                <div className='flex items-center gap-3 min-w-0'>
                   <Thumbnail 
                     type={type}
                     extension={extension}
                     url={convertFileToUrl(file)}
                   />
 
-                  <div>
-                    <p> {file.name} </p>
+                  <div className='flex flex-col min-w-0'>
+                    <p className="text-base font-semibold text-slate-100 truncate max-w-[200px]"> {file.name} </p>
+                    <p className="text-xs text-slate-300 truncate max-w-[200px]"> {formatBytes(file.size)} </p>
                     <Zoomies
                       size="80"
                       stroke="5"
                       bgOpacity="0.1"
                       speed="1.4"
-                      color="black" 
+                      color="white" 
                     />
                   </div>
                 </div>
@@ -126,6 +133,7 @@ const FileUploader = ({ ownerId, accountId, className} : Props) => {
                   alt="remove"
                   width={24}
                   height={24}
+                  className='cursor-pointer opacity-80 hover:opacity-100 hover:scale-105 transition'
                   onClick={(e) => handleRemoveFile(e, file.name)}
                 />
               </li>
