@@ -1,6 +1,21 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
+import { streamOllama } from '@/hooks/useOllama';
 
 export default function Home() {
+  const [query, setQuery] = useState('');
+  const [answer, setAnswer] = useState('');
+
+
+  const handleAsk = async () => {
+    setAnswer(''); // Reset Answer
+    for await (const chunk of streamOllama([{role: "user", content: query}], 'gpt-oss:20b')) {
+      setAnswer((prev) => prev + chunk.message.content);
+    }
+  }
+
+
   return (
     <>
       <section className="relative flex w-full items-center justify-center px-6 py-16 bg-gradient-to-br from-slate-950 via-slate-950 to-slate-900">
@@ -32,6 +47,20 @@ export default function Home() {
 
       <div className="relative mx-6 rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl shadow-xl">
         <div className="pointer-events-none absolute inset-0 rounded-3xl bg-[linear-gradient(to_top,rgba(255,255,255,0.12),transparent_55%)]" />
+
+          {answer && (
+              <div className="
+                mb-6 max-w-[75%] self-start
+                rounded-2xl border border-white/10 
+                bg-gradient-to-r from-slate-800/70 to-slate-900/70
+                p-4 text-sm leading-relaxed text-slate-100
+                shadow-lg backdrop-blur-md
+                animate-fadeIn
+              ">
+                <p className='heading'>Ravel AI: </p>
+                <p>{answer}</p>
+              </div>
+          )}
         
         {/* search row */}
         <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 shadow-inner">
@@ -41,8 +70,13 @@ export default function Home() {
           <input
             placeholder="Ask anything about your docs…"
             className="w-full bg-transparent text-sm text-slate-100 placeholder:text-white/50 focus:outline-none"
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleAsk()}
           />
-          <button className="rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20 transition hover:opacity-90">
+          <button
+            className="rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20 transition hover:opacity-90"
+            onClick={handleAsk}
+          >
             Ask
           </button>
         </div>
