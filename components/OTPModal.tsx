@@ -20,22 +20,37 @@ import {
 } from "@/components/ui/input-otp";
 import { set } from 'zod';
 import { Button } from './ui/button';
-import { verifySecret, sendEmailOTP } from '@/lib/actions/user.actions';
 import { useRouter } from 'next/navigation';
+import { verifyEmailOTP } from '@/lib/supabase-actions/user.actions';
+import { sendEmailOTP } from '@/lib/supabase-actions/user.actions';
+import { send } from 'process';
 
-const OTPModal = ({ accountId, email }: { accountId: string; email: string }) => {
+const OTPModal = ({ email, onClose, mode }: { email: string; onClose?: () => void; mode: "sign-in" | "sign-up" }) => {
     const router = useRouter();
     const [isOpen, setIsOpen] = React.useState(true);
     const [password, setPassword] = React.useState("");
     const [isLoading, setIsLoading] = React.useState(false);
+    const [error, setError] = React.useState<string>("");
+
+    const closeAll = () => {
+        setIsOpen(false);
+        onClose?.();
+    }
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (password.length < 6) return;
         e.preventDefault();
         setIsLoading(true);
+        setError("");
 
         try {
-            const sessionId = await verifySecret({accountId, password})
-            if(sessionId) router.push("/")
+            const res = await verifyEmailOTP({ email, otp: password });
+            if (res.session) {
+              closeAll();
+              router.push("/");
+            } else {
+              setError("Failed to verify OTP. Please try again.");
+            }
         } catch (error) {
             console.log("Failed to verify OTP", error);
         }
@@ -44,8 +59,16 @@ const OTPModal = ({ accountId, email }: { accountId: string; email: string }) =>
     };
 
     const handleResendOTP = async () => {
-        await sendEmailOTP({ email });
-    }
+      setIsLoading(true);
+      setError("");
+      try {
+        await sendEmailOTP({ email, mode });
+      } catch (err: any) {
+        setError(err?.message || "Could not resend code. Try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>

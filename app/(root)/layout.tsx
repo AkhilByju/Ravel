@@ -2,18 +2,24 @@ import Sidebar from '@/components/root/Sidebar'
 import MobileNavigation from '@/components/root/MobileNavigation'
 import Header from '@/components/root/Header'
 import React from 'react'
-import { getCurrentUser } from '@/lib/actions/user.actions'
 import { redirect } from 'next/navigation'
 import { Toaster } from "@/components/ui/toaster"
 import { Separator } from '@/components/ui/separator'
+import { getCurrentUser } from '@/lib/supabase-actions/user.actions'
 
 const layout = async ({children}: {children: React.ReactNode}) => {
   const currentUser = await getCurrentUser();
   if (!currentUser) return redirect('/sign-in');
 
+  const fullName = currentUser.user_metadata?.full_name ?? "";
+  const email = currentUser.email ?? "";
+  const avatar = currentUser.user_metadata?.avatar ?? "";
+  const userId = currentUser.id;
+
+
   return (
     <main className="flex h-screen bg-black">
-      <Sidebar {...currentUser} />
+      <Sidebar fullName={fullName} email={email} avatar={avatar} />
 
       <section
       className="
@@ -31,8 +37,8 @@ const layout = async ({children}: {children: React.ReactNode}) => {
           backgroundPosition: 'center, center, 0 0, 0 0',
           backgroundBlendMode: 'screen, screen, normal, normal'
         }}>
-        <MobileNavigation {...currentUser} />
-        <Header userId={currentUser.$id} accountId={currentUser.accountId} />
+        <MobileNavigation fullName={fullName} email={email} avatar={avatar} $id={userId} accountId={userId} />
+        <Header userId={userId} accountId={userId} />
         <div className="main-content mx-6 space-y-6">{children}</div>
       </section>
 
