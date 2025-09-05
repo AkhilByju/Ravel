@@ -1,9 +1,8 @@
 import React from 'react'
 import Sort from '@/components/root/Sort';
-import { getFiles } from '@/lib/actions/file.actions';
-import { Models } from 'node-appwrite';
 import Card from '@/components/root/Card';
 import { getFileTypesParams } from '@/lib/utils';
+import { getFiles } from '@/lib/supabase-actions/file.actions';
 
 const page = async ({ searchParams, params }: SearchParamProps) => {
     const type = (await params)?.type as string || "";
@@ -12,7 +11,7 @@ const page = async ({ searchParams, params }: SearchParamProps) => {
 
     const types = getFileTypesParams(type) as FileType[];
 
-    const files = await getFiles({ types, searchText, sort});
+    const files = await getFiles({ types, searchText, sort, limit: 1000 });
 
   return (
     <div className='page-container'>
@@ -36,9 +35,9 @@ const page = async ({ searchParams, params }: SearchParamProps) => {
         </section>
 
         {/* Dynamically render the files */}
-        {files.total > 0 ? (
+        {files.length > 0 ? (
             <section className='file-list'>
-                {files.documents.map((file: Models.Document) => (
+                {files.map((file: any) => (
                     <Card key={file.$id} file={file}/>
                 ))}
             </section>

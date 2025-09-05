@@ -1,6 +1,6 @@
 "use client";
 
-import { z } from "zod";
+import { set, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -17,9 +17,9 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { createAccount } from "@/lib/actions/user.actions";
+import { createAccount } from "@/lib/supabase-actions/user.actions";
 import OTPModal from "./OTPModal";
-import { signInUser } from "@/lib/actions/user.actions";
+import { signInUser } from "@/lib/supabase-actions/user.actions";
 
 type FormType = 'sign-in' | 'sign-up';
 
@@ -36,7 +36,9 @@ const authFormSchema = (formType: FormType) => {
 const AuthForm = ({ type }: { type: FormType }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [accountId, setAccountId] = useState(null);
+  const [accountId, setAccountId] = useState<string | null>(null);
+  const [pendingEmail, setPendingEmail] = useState<string | null>(null);
+  const [phase, setPhase] = useState<'email' | 'otp'>('email');
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,20 +52,33 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     setErrorMessage("");
+    setAccountId(null);
 
     try {
-      const user = 
+      const res = 
         type === "sign-up" ? await createAccount({
         fullName: values.fullName || "",
         email: values.email 
       }) : await signInUser({email: values.email});
 
-      setAccountId(user?.accountId);
+      if (res?.accountId === "otp-sent") {
+        setPendingEmail(values.email);
+        setPhase('otp');
+        setAccountId('otp-sent');
+        return;
+      }
+
+      setErrorMessage('Unexpected response. Please try again.');
     } catch (error) {
       setErrorMessage("Failed to create account. Please try again.");
     } finally {
       setIsLoading(false);
     }
+  }
+
+  const handleOtpModalClose = () => {
+    setPhase('email');
+    setAccountId(null);
   }
 
   return (
@@ -146,7 +161,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </div>
       </form>
     </Form>
-    {accountId && <OTPModal email={form.getValues('email')} accountId={accountId} />}
+    {phase === 'otp' && accountId === 'otp-sent' && pendingEmail && <OTPModal email={form.getValues('email')} mode={type} onClose={handleOtpModalClose} />}
     </>
   )
 }
