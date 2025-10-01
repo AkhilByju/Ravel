@@ -8,9 +8,6 @@ import { getCurrentUser } from '@/lib/actions/user.actions';
 import { redirect } from 'next/navigation';
 
 const page = async ({ searchParams, params }: SearchParamProps) => {
-    const currentUser = await getCurrentUser();
-    if (!currentUser) return redirect('/sign-in');
-
     const type = (await params)?.type as string || "";
     const searchText = ((await searchParams)?.query as string) || "";
     const sort = ((await searchParams)?.sort as string) || "";
