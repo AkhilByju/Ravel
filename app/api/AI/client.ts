@@ -10,7 +10,7 @@ const openai = new OpenAI({
 export type ChatMessage = { role: 'system' | 'user' | 'assistant'; content: string };
 
 export async function* streamChat({
-  model = 'gpt-4',
+  model = 'gpt-5-nano',
   messages,
   options,
 }: {
@@ -18,8 +18,13 @@ export async function* streamChat({
   messages: ChatMessage[];
   options?: Record<string, any>;
 }) {
-  const response = await ollama.chat({ model, messages, stream: true, options });
-  for await (const chunk of response) {
-    yield chunk; // { message?: {role, content?}, done?: boolean, etc. }
+  const result = await openai.responses.create({
+  model: "gpt-5",
+  input: messages,
+  reasoning: { effort: "low" },
+  text: { verbosity: "low" },
+});
+  for await (const chunk of result.output_text) {
+    yield chunk;
   }
 }

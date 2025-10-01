@@ -11,8 +11,8 @@ export default function Home() {
 
   const handleAsk = async () => {
     setAnswer(''); // Reset Answer
-    for await (const chunk of streamAI([{role: "user", content: query}], 'gpt-oss:20b')) {
-      setAnswer((prev) => prev + chunk.message.content);
+    for await (const chunk of streamAI([{role: "user", content: query}], 'gpt-5-nano')) {
+      setAnswer((prev) => prev + chunk);
     }
   }
 
