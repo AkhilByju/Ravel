@@ -92,6 +92,7 @@ export const verifySecret = async ({accountId, password}: {accountId: string, pa
 };
 
 export const getCurrentUser = async () => {
+  try {
     const { databases, account } = await createSessionClient();
 
     const result = await account.get();
@@ -105,7 +106,10 @@ export const getCurrentUser = async () => {
     if (user.total <= 0) return null;
 
     return parseStringify(user.documents[0]);
-};
+  } catch {
+    return null
+  }
+}
 
 export const signOutUser = async () => {
   const { account } = await createSessionClient();
