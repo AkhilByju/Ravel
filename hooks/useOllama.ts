@@ -1,6 +1,5 @@
-// hooks/useOllama.ts
-export async function* streamOllama(messages: {role:'user'|'assistant'|'system';content:string}[], model='llama3.1') {
-  const res = await fetch('/api/ollama', {
+export async function* streamAI(messages: {role:'user'|'assistant'|'system';content:string}[], model='gpt-5-nano') {
+  const res = await fetch('/api/AI', {
     method: 'POST',
     body: JSON.stringify({ messages, model }),
   });

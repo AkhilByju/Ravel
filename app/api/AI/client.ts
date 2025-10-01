@@ -1,14 +1,16 @@
-'use server'; // ensures server-only usage in Next.js
+'use server';
 
 import ollama from 'ollama';
+import OpenAI from 'openai';
 
-// Optional: override host if not default localhost:11434
-// process.env.OLLAMA_HOST = process.env.OLLAMA_HOST ?? 'http://127.0.0.1:11434';
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 export type ChatMessage = { role: 'system' | 'user' | 'assistant'; content: string };
 
 export async function* streamChat({
-  model = 'llama3.1',
+  model = 'gpt-4',
   messages,
   options,
 }: {
@@ -20,16 +22,4 @@ export async function* streamChat({
   for await (const chunk of response) {
     yield chunk; // { message?: {role, content?}, done?: boolean, etc. }
   }
-}
-
-export async function chatOnce({
-  model = 'llama3.1',
-  messages,
-  options,
-}: {
-  model?: string;
-  messages: ChatMessage[];
-  options?: Record<string, any>;
-}) {
-  return ollama.chat({ model, messages, stream: false, options });
 }

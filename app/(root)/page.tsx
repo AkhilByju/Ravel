@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { streamOllama } from '@/hooks/useOllama';
+import { streamAI } from '@/hooks/useOllama';
 import StatsCard from '@/components/root/StatsCard';
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
 
   const handleAsk = async () => {
     setAnswer(''); // Reset Answer
-    for await (const chunk of streamOllama([{role: "user", content: query}], 'gpt-oss:20b')) {
+    for await (const chunk of streamAI([{role: "user", content: query}], 'gpt-oss:20b')) {
       setAnswer((prev) => prev + chunk.message.content);
     }
   }

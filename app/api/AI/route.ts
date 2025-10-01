@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
-import { streamChat } from '@/app/api/ollama/client';
+import { streamChat } from '@/app/api/AI/client';
 
-export const runtime = 'nodejs'; // IMPORTANT: Ollama needs Node (not Edge)
+export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
   const { messages, model = 'llama3.1', options } = await req.json();
