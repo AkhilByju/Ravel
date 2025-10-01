@@ -100,10 +100,16 @@ const config: Config = {
   				'20%,50%': {
   					opacity: '0'
   				}
-  			}
+  			},
+			'gradient-move': {
+				'0%': { backgroundPosition: '0% 50%' },
+				'50%': { backgroundPosition: '100% 50%' },
+				'100%': { backgroundPosition: '0% 50%' },
+   			},	
   		},
   		animation: {
-  			'caret-blink': 'caret-blink 1.25s ease-out infinite'
+  			'caret-blink': 'caret-blink 1.25s ease-out infinite',
+			'gradient-move': 'gradient-move 8s ease infinite'
   		}
   	}
   },

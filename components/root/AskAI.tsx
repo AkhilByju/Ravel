@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
   Drawer,
   DrawerClose,
@@ -12,8 +12,21 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
+import { streamAI } from '@/hooks/useOllama'
 
 const AskAI = () => {
+    const [query, setQuery] = useState('');
+    const [answer, setAnswer] = useState('');
+    
+    
+    const handleAsk = async () => {
+        setAnswer(''); // Reset Answer
+        for await (const chunk of streamAI([{role: "user", content: query}], 'gpt-5-nano')) {
+          setAnswer((prev) => prev + chunk);
+        }
+      }
+
+
   return (
     <>
     <div className="mx-4 my-3 rounded-2xl bg-white/10 p-3 backdrop-blur-sm">
@@ -30,12 +43,42 @@ const AskAI = () => {
                 )}
             >
                 <DrawerHeader className='px-5'>
-                    <DrawerTitle>
-                        <span className="bg-gradient-to-r from-indigo-400 via-indigo-300 to-fuchsia-400 bg-clip-text text-transparent text-2xl">
-                                Ravel AI Assistant
-                        </span>
-                    </DrawerTitle>
-                    <DrawerDescription className="text-slate-300">Ask any questions relating to your documents</DrawerDescription>
+                    {answer ? (
+                        <div className="
+                            mb-6 max-w-[75%] self-start
+                            rounded-2xl border border-white/20 
+                            bg-gradient-to-r from-slate-800/90 to-slate-900/70
+                            p-4 text-sm leading-relaxed text-slate-100
+                            shadow-lg backdrop-blur-md
+                            animate-fadeIn
+                            ">
+                            <p
+                            className="
+                                w-fit inline-block text-2xl font-bold tracking-wide
+                                bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-indigo-400
+                                bg-[length:300%_100%] bg-clip-text text-transparent
+                                [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]
+                                animate-gradient-move
+                            "
+                            >
+                            Ravel AI Assistant:
+                            </p>
+
+                                <p>{answer}</p>
+                            </div>) : 
+                        <>
+                            <DrawerTitle>
+                                <span className="                                w-fit inline-block text-2xl font-bold tracking-wide
+                                bg-gradient-to-r from-indigo-500 via-fuchsia-400 to-indigo-500
+                                bg-[length:300%_100%] bg-clip-text text-transparent
+                                [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]
+                                animate-gradient-move">
+                                        Ravel AI Assistant
+                                </span>
+                            </DrawerTitle>
+                            <DrawerDescription className="text-slate-300">Ask any questions relating to your documents</DrawerDescription>
+                        </>
+                    }
                 </DrawerHeader>
                 <div className='px-4'>
                     <Textarea
@@ -50,16 +93,20 @@ const AskAI = () => {
                             "focus-visible:ring-2 focus-visible:ring-indigo-400/60",
                             "focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
                         )}
+                        onChange={(e) => setQuery(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleAsk}
                         />
                 </div>
                 <DrawerFooter className="flex gap-2">
                     <Button className={cn(
                         "rounded-xl px-4 py-2.5 font-medium my-2",
                         "bg-gradient-to-r from-indigo-500 via-indigo-300 to-fuchsia-500"
-                        )}>
+                        )}
+                        onClick={handleAsk}
+                        >
                             Send Message
                     </Button>
-                    <DrawerClose>
+                    <DrawerClose asChild>
                         <Button variant="outline">End Session</Button>
                     </DrawerClose>
                 </DrawerFooter>

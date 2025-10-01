@@ -57,9 +57,19 @@ export default function Home() {
                 p-4 text-sm leading-relaxed text-slate-100
                 shadow-lg backdrop-blur-md
                 animate-fadeIn
-              ">
-                <p className='heading'>Ravel AI: </p>
-                <p>{answer}</p>
+            ">
+            <p
+              className="
+                w-fit inline-block text-2xl font-bold tracking-wide
+                bg-gradient-to-r from-indigo-500 via-fuchsia-400 to-indigo-500
+                bg-[length:300%_100%] bg-clip-text text-transparent
+                [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]
+                animate-gradient-move
+              "
+            >
+              Ravel AI Assistant:
+            </p>
+              <p className='text-white'>{answer}</p>
               </div>
           )}
         
